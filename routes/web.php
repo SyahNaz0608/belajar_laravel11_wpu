@@ -27,6 +27,10 @@ Route::get('/posts', function () {
     ]]);
 });
 
+Route::get('/posts/{$id}', function ($id) {
+    dd($id);
+});
+
 Route::get('contact', function () {
     return view('contact', ['title' => 'Our Contacts']);
 });
