@@ -1,5 +1,6 @@
 <?php
 
+use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
@@ -28,7 +29,26 @@ Route::get('/posts', function () {
 });
 
 Route::get('/posts/{$id}', function ($id) {
-    dd($id);
+    $posts = [
+        [
+            'id' => 1,
+            'title' => 'Judul Artikel 1',
+            'author' => 'Muhamad Syah',
+            'body' => 'Lorem ipsum, dolor sit amet consectetur adipisicing elit. Exercitationem modi voluptate delectus ad corporis dicta, quo distinctio laboriosam nihil officia labore nisi accusamus sunt dolore expedita laborum dolor qui ut?'
+        ],
+        [
+            'id' => 2,
+            'title' => 'Judul Artikel 2',
+            'author' => 'Muhamad Syah',
+            'body' => 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Aperiam sit quod, expedita dolorum vitae praesentium minus quibusdam officiis magnam distinctio, eius dolore quae commodi mollitia! Adipisci maxime natus deleniti nam!'
+        ]
+    ];
+
+    $post = Arr::first($posts, function ($post) use ($id) {
+        return $post['id'] == $id;
+    });
+
+    return view('post', ['title' => 'Single Post', 'post' => $post]);
 });
 
 Route::get('contact', function () {
